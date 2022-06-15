@@ -2,6 +2,7 @@
 #define _BPLUSTREE_H_
 
 #include <string>
+#include "BPTreeNode.h"
 
 class BPlusTree {
 public:
@@ -11,7 +12,10 @@ public:
     std::string find(int key);
     void printKeys();
     void printValues();
-}
+
+    int max_order;
+    BPTreeNode *root;
+};
 
 
 
