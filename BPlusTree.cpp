@@ -116,8 +116,8 @@ bool BPlusTree::insert(key_t key, value_t value)
         BPTreeNode* new_node = new BPTreeNode(max_order, NodeType::kLeafNode);
         new_node->next = curr_node->next;
         curr_node->next = new_node;
-        int split_right_count = ceil((double)max_order / 2);
-        int split_left_count = max_order / 2;
+        int split_right_count = max_order / 2;
+        int split_left_count = ceil((double)max_order / 2);
         for (int i = 0; i < split_right_count; i++)
         {
             new_node->keys[i] = curr_node->keys[i + split_left_count];
@@ -185,6 +185,31 @@ bool BPlusTree::insert(key_t key, value_t value)
     }
 }
 
+bool BPlusTree::remove(key_t key)
+{
+    if (root == nullptr)
+    {
+        return false;
+    }
+
+    if (find(key) == "")
+    {
+        return false;
+    }
+    return true;
+
+    BPTreeNode* curr_node = root;
+    while (curr_node->node_type == NodeType::kInternalNode)
+    {
+        int i = 0;
+        while (i < curr_node->num_keys && key >= curr_node->keys[i])
+        {
+            i++;
+        }
+        curr_node = curr_node->children[i];
+    }
+}
+
 void BPlusTree::printKeys()
 {
     BPTreeNode* first_node_each_level = root;
@@ -237,30 +262,4 @@ void BPlusTree::printValues()
         }
         curr_node = curr_node->next;
     }
-}
-
-int main()
-{
-    BPlusTree bptree(3);
-    bptree.insert(2, "a");
-    bptree.printKeys();
-    bptree.insert(11, "e");
-    bptree.printKeys();
-    bptree.insert(21, "f");
-    bptree.printKeys();
-    bptree.insert(8, "d");
-    bptree.printKeys();
-    bptree.insert(64, "h");
-    bptree.printKeys();
-    bptree.insert(5, "b");
-    bptree.printKeys();
-    bptree.insert(23, "g");
-    bptree.printKeys();
-    bptree.insert(6, "c");
-    bptree.printKeys();
-    bptree.insert(65, "i");
-    bptree.printKeys();
-    bptree.insert(66, "j");
-    bptree.printKeys();
-    bptree.printValues();
 }

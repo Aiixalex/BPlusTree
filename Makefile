@@ -1,5 +1,5 @@
-TARGET = bptree
-OBJS = BPlusTree.o BPTreeNode.o
+TARGET = main
+OBJS = BPlusTree.o BPTreeNode.o main.o
 
 CFLAGS = -std=c++11
 CXX = g++
