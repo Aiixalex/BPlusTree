@@ -18,8 +18,14 @@ private:
     int max_order;
     NodeType node_type;
     std::vector<key_t> keys;
+
+    // Leaf node only
     std::vector<value_t> values;
+
+    // Internal nodes only
     std::vector<BPTreeNode*> children;
+
+    BPTreeNode* next;
     BPTreeNode* parent;
     int num_keys;
 public:
