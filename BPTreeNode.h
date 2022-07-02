@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 
 typedef int key_t;
 typedef std::string value_t;
@@ -23,13 +24,16 @@ private:
     std::vector<value_t> values;
 
     // Internal nodes only
-    std::vector<BPTreeNode*> children;
+    std::vector<std::shared_ptr<BPTreeNode>> children;
+    std::weak_ptr<BPTreeNode> parent;
 
-    BPTreeNode* next;
-    BPTreeNode* parent;
+    std::shared_ptr<BPTreeNode> next;
+    std::weak_ptr<BPTreeNode> prev;
+
     int num_keys;
 public:
     BPTreeNode(int max_order, NodeType node_type);
+    ~BPTreeNode();
 };
 
 #endif

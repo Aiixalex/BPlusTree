@@ -9,10 +9,13 @@ BPTreeNode::BPTreeNode(int max_order, NodeType node_type) : max_order(max_order)
     }
     else
     {
-        children = std::vector<BPTreeNode *>(max_order);
+        children = std::vector<std::shared_ptr<BPTreeNode>>(max_order + 1); // only allows (max_order) children
     }
 
-    parent = nullptr;
+    next = nullptr;
     num_keys = 0;
 }
 
+BPTreeNode::~BPTreeNode()
+{
+}
